@@ -1,3 +1,10 @@
+<%-- 
+    Document   : index
+    Created on : 26-jul-2018, 1:53:23
+    Author     : Sergio
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- https://github.com/evolvingweb/ajax-solr/wiki -->
 <html>
@@ -11,8 +18,10 @@
   <link href="../Styles/jquery-ui.theme.css" rel="stylesheet" />
   <link href="../Styles/BootstrapCss/bootstrap.css" rel="stylesheet" />
   
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+  <script src="../Scripts/jquery-2.1.1.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script-->
+  <!--script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script-->
   <script src="core/Core.js"></script>
   <script src="core/AbstractManager.js"></script>
   <script src="managers/Manager.jquery.js"></script>
@@ -32,13 +41,16 @@
   <script src="widgets/HighchartsWidget.js"></script>
   <script src="highcharts/highstock.js"></script>
   <script src="highcharts/modules/exporting.js"></script>
+  <script src="../Scripts/Bootstrap/bootstrap.min.js"></script>
+
   <script src="js/ibd.js"></script>
 
   <script type="text/javascript">
   var stockChart;
   
   $(function() {
-	$('#idInvestigacion').html(window.location.hash.substr(1))
+	$('#idInvestigacion').html(window.location.hash.substr(1));
+	$('#idInvestigacionInput').val(window.location.hash.substr(1));
   });
   </script>
 
@@ -51,20 +63,25 @@
 				<img src="../Content/Images/AttachFileHandler.png" width="100%" height="100%" />
 			</a>
 		</div>
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario: <label for="testutnfrd">testutnfrd</label> - DJ: <label for="">18</label><span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a id="LogOut">Log-Out</a></li>
-					</ul>
-				</li>
-				<li>
-					<a href="#">Version investiga IBD<span class="sr-only">(current)</span></a>
-				</li>
-			</ul>
-		</div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="../upload">Ver Archivos</a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#uploadFileModal">Subir Archivo</a>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario: <label for="testutnfrd"><%= session.getAttribute("userName") %></label><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="../logout">Log-Out</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Versi&oacute;n <span class="sr-only">TEST</span></a>
+                        </li>
+                    </ul>
+                </div>
 	</div>
 	</nav>
 <div class="container">
@@ -135,5 +152,50 @@
   </div>
   </div>
   <br><br><br><br>
+
+        <div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="uploadFileModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="uploadFileModalLabel">SUBIR ARCHIVO</h4>
+              </div>
+              <div class="modal-body">
+                <form action="../upload" method="post" enctype="multipart/form-data" id="upload_form">
+                    <div class="form-group">
+                        <label>ID_Investigacion:</label>
+                        <input type="text" name="idInvestigacion" id="idInvestigacionInput" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Archivo:</label>
+                        <input type="file" name="file" multiple="true" size="50" class="form-control" />
+                    </div>
+                </form>
+                <div id="tooTimeAlert" class="alert alert-info" style="display:none" role="alert">El proceso puede demorar varios minutos</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <input id="uploadBtn" type="submit" class="btn btn-primary" value="Subir Archivos" />
+                <script>
+                    $("#uploadBtn").click(function(){
+                        $("#tooTimeAlert").show();
+                        $("#uploadBtn").addClass("loader");
+                        $("#uploadBtn").prop( "disabled", true );
+                        $("#uploadBtn").css("background-repeat",  "no-repeat");
+                        $("#uploadBtn").css("padding-left", "32px");
+                        $("#upload_form").submit();
+                    });
+                    $('#uploadFileModal').on('hidden.bs.modal', function (e) {
+                        $("#tooTimeAlert").hide();
+                        $("#uploadBtn").removeClass("loader");
+                        $("#uploadBtn").prop( "disabled", false );
+                        $("#uploadBtn").css("padding-left", "12px");
+                    });
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
 </body>
 </html>
