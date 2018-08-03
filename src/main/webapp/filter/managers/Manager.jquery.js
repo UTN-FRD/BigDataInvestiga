@@ -33,6 +33,17 @@ AjaxSolr.Manager = AjaxSolr.AbstractManager.extend(
     else {
       options.url = this.solrUrl + servlet + '?' + string + '&wt=json' + (disableJsonp ? '' : '&json.wrf=?');
     }
+    
+    var params = {};
+    params.url = options.url;
+    params.idUsuario = 1; //CAMBIAR
+    params.idInvestigacion = window.location.hash.substr(1);
+    $.ajax({
+      url: '../ajax/savestep',
+      data: params,
+      type: 'POST'
+    });
+    
     jQuery.ajax(options).done(handler).fail(errorHandler);
   }
 });
