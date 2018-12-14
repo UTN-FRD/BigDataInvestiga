@@ -8,7 +8,7 @@ CREATE TABLE `ibd`.`files` (
   `id_usuario` BIGINT(20) NULL,
   PRIMARY KEY (`id`));
 
-CREATE TABLE `ibd`.`files` (
+CREATE TABLE `ibd`.`steps` (
   `id` BIGINT(20) NOT NULL,
   `url` VARCHAR(1000) NULL,
   `fecha_creado` TIMESTAMP NULL,
