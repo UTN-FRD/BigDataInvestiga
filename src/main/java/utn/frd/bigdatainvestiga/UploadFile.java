@@ -18,14 +18,13 @@ import javax.servlet.http.Part;
 import utn.frd.bigdatainvestiga.dao.UserFileDAO;
 import utn.frd.bigdatainvestiga.entity.UserFile;
 import utn.frd.bigdatainvestiga.parser.ParserFile;
+import utn.frd.bigdatainvestiga.util.PropertyUtils;
 
 
 @WebServlet("/upload")
 @MultipartConfig
 public class UploadFile extends HttpServlet {
 
-    public static final String SERVER_UPLOAD_LOCATION_FOLDER = "C:\\BigDataInvestiga\\uploads\\";
-    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setAttribute("files", (new UserFileDAO()).getUserFiles(1l) );  //saveOrUpdate( new UserFile(idUsuario, Long.parseLong(idInvestigacion), fileName) );
@@ -48,7 +47,7 @@ public class UploadFile extends HttpServlet {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
                 InputStream fileContent = filePart.getInputStream();
 
-                File file = new File(SERVER_UPLOAD_LOCATION_FOLDER+fileName);
+                File file = new File( PropertyUtils.get("upload.folder") +fileName);
                 OutputStream outputStream = new FileOutputStream(file);
 
                 int read = 0;
@@ -58,7 +57,7 @@ public class UploadFile extends HttpServlet {
                 }
                 outputStream.close();
 
-                ParserFile.parse(SERVER_UPLOAD_LOCATION_FOLDER, fileName, idInvestigacion, idUsuario );
+                ParserFile.parse(fileName, idInvestigacion, idUsuario );
 
                 (new UserFileDAO()).saveOrUpdate( new UserFile(idUsuario, Long.parseLong(idInvestigacion), fileName) );
 

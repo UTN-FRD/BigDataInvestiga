@@ -7,6 +7,7 @@ package utn.frd.bigdatainvestiga.data.manager;
 
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import utn.frd.bigdatainvestiga.util.PropertyUtils;
 
 /**
  *
@@ -19,7 +20,7 @@ public class SolrManager {
     private SolrClient solr;
     
     private SolrManager(){
-        String urlString = "http://192.168.1.35:8983/solr/comunicaciones";
+        String urlString = PropertyUtils.get("solr.url"); // "http://127.0.0.1:8983/solr/comunicaciones";
         solr = new HttpSolrClient.Builder(urlString).build();
     }
     
