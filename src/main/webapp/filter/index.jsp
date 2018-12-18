@@ -3,7 +3,7 @@
     Created on : 26-jul-2018, 1:53:23
     Author     : Sergio
 --%>
-
+<%@page import="utn.frd.bigdatainvestiga.util.PropertyUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- https://github.com/evolvingweb/ajax-solr/wiki -->
@@ -47,6 +47,7 @@
 
         <script type="text/javascript">
             var stockChart;
+            var SOLR_URL = '<%= PropertyUtils.get("solr.url") %>/';
 
             $(function () {
                 $('#idInvestigacion').html(window.location.hash.substr(1));

@@ -4,7 +4,7 @@ var Manager;
 
   $(function () {
     Manager = new AjaxSolr.Manager({
-      solrUrl: 'http://lsi.no-ip.org:8983/solr/comunicaciones/'
+      solrUrl: SOLR_URL
     });
     Manager.addWidget(new AjaxSolr.ResultWidget({
       id: 'result',
