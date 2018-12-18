@@ -15,7 +15,15 @@ AjaxSolr.TagcloudWidget = AjaxSolr.AbstractFacetWidget.extend({
         if (count > maxCount) {
           maxCount = count;
         }
-        objectedItems.push({ facet: facet, count: count });
+        
+        var description = facet.trim();
+        /*
+        var reg = /^\d+$/;
+        if(reg.test(description)){
+            description = description.substring(1,4)+"***"+description.substring(7,facet.length)
+        }
+        */
+        objectedItems.push({ facet: facet, description: description, count: count });
       }
     }
     objectedItems.sort(function (a, b) {
@@ -31,7 +39,7 @@ AjaxSolr.TagcloudWidget = AjaxSolr.AbstractFacetWidget.extend({
     	if(this.manager.store.get('q').val().indexOf(this.field)!== -1 ){
 	      $(this.target).append(
 	  	        $('<a href="#" class="tagcloud_item label label-primary"></a>')
-	  	        .text(facet).append('<sub>('+objectedItems[i].count+')</sub>')
+	  	        .text(description).append('<sub>('+objectedItems[i].count+')</sub>')
 	  	        .addClass('label-danger tagcloud_size_10')
 	  	        .click(function () {
 		    	    self.manager.store.get('q').val('*:*');
@@ -46,7 +54,7 @@ AjaxSolr.TagcloudWidget = AjaxSolr.AbstractFacetWidget.extend({
     			if(fq[i].indexOf(this.field)!== -1){
     			      $(this.target).append(
     				  	        $('<a href="#" class="tagcloud_item label label-primary"></a>')
-    				  	        .text(facet+" [X]")
+    				  	        .text(description+" [X]")
     				  	        .addClass('label-danger tagcloud_size_10')
     				  	        .click(this.removeFacet(fq[i]))
     				  	      );
@@ -65,12 +73,11 @@ AjaxSolr.TagcloudWidget = AjaxSolr.AbstractFacetWidget.extend({
     
     if(!filtered)
 	    for (var i = 0, l = objectedItems.length; i < l; i++) {
-	      var facet = objectedItems[i].facet;
 	      $(this.target).append(
 	        $('<a href="#" class="tagcloud_item label label-primary"></a>')
-	        .text(facet).append('<sub>('+objectedItems[i].count+')</sub>')
+	        .text(objectedItems[i].description).append('<sub>('+objectedItems[i].count+')</sub>')
 	        .addClass('tagcloud_size_' + parseInt(objectedItems[i].count / maxCount * 10))
-	        .click(this.clickHandler(facet))
+	        .click(this.clickHandler(objectedItems[i].facet))
 	      );
 	    }
   },
