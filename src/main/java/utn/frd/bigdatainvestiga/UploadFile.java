@@ -37,7 +37,7 @@ public class UploadFile extends HttpServlet {
             response.sendRedirect("login");
         }else{
             StringBuffer sb = new StringBuffer();
-            sb.append("<h4>Resultados</h4><ul>");
+            sb.append("<ul class=\"list-group\">");
             String idInvestigacion = request.getParameter("idInvestigacion");
             Long idUsuario = 1l;
 
@@ -63,15 +63,15 @@ public class UploadFile extends HttpServlet {
                     ParserFile.parse(fileName, idInvestigacion, idUsuario );
 
                     (new UserFileDAO()).saveOrUpdate( new UserFile(idUsuario, Long.parseLong(idInvestigacion), fileName) );
-                    sb.append("<li>Archivo "+fileName+" procesado con exito</li>");
+                    sb.append("<li class=\"list-group-item list-group-item-success\"><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> Archivo "+fileName+" procesado con exito</li>");
                 }catch(Exception e){
-                    sb.append("<li>Error con archivo: "+fileName+"</li>");
+                    sb.append("<li class=\"list-group-item list-group-item-danger\"><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> Error con archivo: "+fileName+"</li>");
                 }
-
-                sb.append("<h4>Resultados</h4>");
 
             }
             sb.append("</ul>");
+            
+            request.getSession().setAttribute("uploadResult", sb.toString());
             response.sendRedirect("filter#" + idInvestigacion);
         }
     }

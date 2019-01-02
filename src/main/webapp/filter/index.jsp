@@ -88,6 +88,31 @@
         <div class="container">
             <h4 class="tituloPasoAsistente">PREFILTRO DE DATOS - Investigaci&oacute;n: <span id="idInvestigacion"></span></h4>
             
+        <% if( request.getSession().getAttribute("uploadResult")!=null ){ %>
+            
+<!--            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+-->            
+            <div class="modal show" id="uploadResultModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#uploadResultModal').removeClass('show');"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= (String)request.getSession().getAttribute("uploadResult") %>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <script>
+                
+            </script>
+            
+            <% request.getSession().removeAttribute("uploadResult"); 
+        }%>
             
             <div class="row">
                 <div class="col-md-10">

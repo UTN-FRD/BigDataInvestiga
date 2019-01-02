@@ -6,6 +6,8 @@
 package utn.frd.bigdatainvestiga.parser.custom;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -17,6 +19,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import utn.frd.bigdatainvestiga.data.manager.SolrManager;
 import utn.frd.bigdatainvestiga.parser.ParserUtils;
@@ -51,11 +54,11 @@ public class PersonalParser {
         }
     }
 
-    public PersonalParser(File archivoExcel, String fileName, String idInvestigacion, Long idUsuario) {
+    public PersonalParser(File archivoExcel, String fileName, String idInvestigacion, Long idUsuario) throws SolrServerException, IOException, ParseException {
         SolrClient solr = SolrManager.getSolrClient();
         long start = System.currentTimeMillis();
-        try{
-            OldExcelExtractor old = new OldExcelExtractor(archivoExcel);
+
+        OldExcelExtractor old = new OldExcelExtractor(archivoExcel);
             StringBuilder sb = new StringBuilder(old.getText().replaceAll("(?:\\n|\\r)", " ").replaceAll("\\s{2,}", " "));
             
             Pattern pattern = Pattern.compile("(\\d\\.\\d+E\\d)\\s+(\\d{2}/\\d{2}/\\d{4} \\d{2}:\\d{2}:\\d{2})\\s+([E|S])\\s+([\\d|\\*]+)\\s+([\\d|\\.]+)\\s+(([A-Z0-9]+)\\s+(.*?AIRES))*", Pattern.DOTALL+Pattern.CASE_INSENSITIVE);
@@ -90,9 +93,6 @@ public class PersonalParser {
                 solr.add(document);
             }
             solr.commit();
-        }catch (Exception e){
-            Logger.getLogger(PersonalParser.class.getName()).log(Level.SEVERE, null, e);
-        }
     }
     
 }

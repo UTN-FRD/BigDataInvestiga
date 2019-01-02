@@ -10,9 +10,6 @@ import utn.frd.bigdatainvestiga.parser.custom.ClaroParser;
 import utn.frd.bigdatainvestiga.parser.custom.PersonalParser;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.poi.hssf.OldExcelFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -24,7 +21,7 @@ import utn.frd.bigdatainvestiga.util.PropertyUtils;
  */
 public class ParserFile {
     
-    public static void parse(String fileName, String idInvestigacion, Long idUsuario) throws IOException{
+    public static void parse(String fileName, String idInvestigacion, Long idUsuario) throws Exception{
         File archivoExcel = new File( PropertyUtils.get("upload.folder")+fileName );
         
         try {
@@ -42,8 +39,6 @@ public class ParserFile {
             
         }catch(OldExcelFormatException oefe){
             new PersonalParser(archivoExcel, fileName, idInvestigacion, idUsuario);
-        } catch (Exception ex) {
-            Logger.getLogger(ParserFile.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

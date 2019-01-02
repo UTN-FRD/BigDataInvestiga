@@ -5,12 +5,13 @@
  */
 package utn.frd.bigdatainvestiga.parser.custom;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
+import java.text.ParseException;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import utn.frd.bigdatainvestiga.data.manager.SolrManager;
 import utn.frd.bigdatainvestiga.parser.ParserUtils;
@@ -21,11 +22,10 @@ import utn.frd.bigdatainvestiga.parser.ParserUtils;
  */
 public class NextelParser {
 
-    public NextelParser(Workbook excel, String fileName, String idInvestigacion, Long idUsuario) {
+    public NextelParser(Workbook excel, String fileName, String idInvestigacion, Long idUsuario) throws SolrServerException, IOException, ParseException {
         SolrClient solr = SolrManager.getSolrClient();
         String aux;
         
-        try{
             if(fileName.contains("radio")){
                 for(Row row : excel.getSheetAt(0)){
                     if(row.getRowNum()>7){
@@ -83,9 +83,6 @@ public class NextelParser {
             }
 
             solr.commit();
-        } catch (Exception ex) {
-            Logger.getLogger(NextelParser.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
 }

@@ -5,16 +5,16 @@
  */
 package utn.frd.bigdatainvestiga.parser.custom;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import utn.frd.bigdatainvestiga.data.manager.SolrManager;
 
@@ -24,11 +24,10 @@ import utn.frd.bigdatainvestiga.data.manager.SolrManager;
  */
 public class ClaroParser {
 
-    public ClaroParser(Workbook excel, String fileName, String idInvestigacion, Long idUsuario) {
+    public ClaroParser(Workbook excel, String fileName, String idInvestigacion, Long idUsuario) throws SolrServerException, IOException {
         SolrClient solr = SolrManager.getSolrClient();
         DateFormat solrDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-        try{
             //salientes
             for(Row row : excel.getSheetAt(0)){
                 if(row.getRowNum()>12){
@@ -69,9 +68,6 @@ public class ClaroParser {
             }
 
             solr.commit();
-        } catch (Exception ex) {
-            Logger.getLogger(ClaroParser.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
 }
