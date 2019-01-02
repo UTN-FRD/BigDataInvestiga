@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utn.frd.bigdatainvestiga.parser;
+package utn.frd.bigdatainvestiga.parser.custom;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.SolrInputDocument;
 import utn.frd.bigdatainvestiga.data.manager.SolrManager;
+import utn.frd.bigdatainvestiga.parser.ParserUtils;
 
 /**
  *

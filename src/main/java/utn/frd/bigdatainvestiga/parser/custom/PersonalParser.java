@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utn.frd.bigdatainvestiga.parser;
+package utn.frd.bigdatainvestiga.parser.custom;
 
 import java.io.File;
 import java.util.logging.Level;
@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.SolrInputDocument;
 import utn.frd.bigdatainvestiga.data.manager.SolrManager;
+import utn.frd.bigdatainvestiga.parser.ParserUtils;
 
 /**
  *
@@ -50,12 +51,10 @@ public class PersonalParser {
         }
     }
 
-    PersonalParser(File archivoExcel, String fileName, String idInvestigacion, Long idUsuario) {
+    public PersonalParser(File archivoExcel, String fileName, String idInvestigacion, Long idUsuario) {
         SolrClient solr = SolrManager.getSolrClient();
         long start = System.currentTimeMillis();
         try{
-            System.out.println( "INIT" );
-            
             OldExcelExtractor old = new OldExcelExtractor(archivoExcel);
             StringBuilder sb = new StringBuilder(old.getText().replaceAll("(?:\\n|\\r)", " ").replaceAll("\\s{2,}", " "));
             
@@ -92,9 +91,8 @@ public class PersonalParser {
             }
             solr.commit();
         }catch (Exception e){
-            System.out.println(e.getLocalizedMessage());
+            Logger.getLogger(PersonalParser.class.getName()).log(Level.SEVERE, null, e);
         }
-        System.out.println("FIN: "+(System.currentTimeMillis()-start)/1000);
     }
     
 }

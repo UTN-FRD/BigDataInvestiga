@@ -20,11 +20,11 @@ public class ParserUtils {
 
     static DateFormat nextelDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     
-    static String formatNextelDate(String nd) throws ParseException {
+    public static String formatNextelDate(String nd) throws ParseException {
         return solrDate.format( nextelDate.parse(nd) );
     }
 
-    static String solrDateNow() {
+    public static String solrDateNow() {
         return solrDate.format(new Date());
     }
 }

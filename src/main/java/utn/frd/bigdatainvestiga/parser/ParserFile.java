@@ -5,6 +5,9 @@
  */
 package utn.frd.bigdatainvestiga.parser;
 
+import utn.frd.bigdatainvestiga.parser.custom.NextelParser;
+import utn.frd.bigdatainvestiga.parser.custom.ClaroParser;
+import utn.frd.bigdatainvestiga.parser.custom.PersonalParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
