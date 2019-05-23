@@ -4,6 +4,7 @@
     Author     : Sergio
 
     Framework: https://github.com/evolvingweb/ajax-solr
+               https://www.highcharts.com/demo/arearange
 --%>
 <%@page import="utn.frd.bigdatainvestiga.util.PropertyUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
