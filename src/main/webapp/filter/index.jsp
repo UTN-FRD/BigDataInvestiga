@@ -2,6 +2,8 @@
     Document   : index
     Created on : 26-jul-2018, 1:53:23
     Author     : Sergio
+
+    Framework: https://github.com/evolvingweb/ajax-solr
 --%>
 <%@page import="utn.frd.bigdatainvestiga.util.PropertyUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
