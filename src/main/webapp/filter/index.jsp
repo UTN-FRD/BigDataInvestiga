@@ -21,6 +21,7 @@
         <link href="../Styles/jquery-ui.theme.css" rel="stylesheet" />
         <link href="../Styles/BootstrapCss/bootstrap.css" rel="stylesheet" />
 
+        <script src="../Scripts/config.js"></script>
         <script src="../Scripts/jquery-2.1.1.js"></script>
         <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
         <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script-->

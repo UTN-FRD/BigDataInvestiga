@@ -18,6 +18,7 @@
         <link href="Styles/DataTable/jquery.dataTables.min.css" rel="stylesheet" />
         <link href="Styles/BootstrapCss/prettify.css" rel="stylesheet" />
 
+        <script src="Scripts/config.js"></script>
         <script src="Scripts/jquery-2.1.1.js"></script>
         <script src="Scripts/Bootstrap/bootstrap-datepicker.js"></script>
         <script src="Scripts/Bootstrap/bootstrap.min.js"></script>
@@ -35,6 +36,7 @@
         <script src="Scripts/Bootstrap/jquery.bootstrap.wizard.js"></script>
         <script src="Scripts/Bootstrap/prettify.js"></script>
         <script src="Scripts/Bootstrap/bootstrap-datepicker.js"></script>
+        
         
 
     </head>
