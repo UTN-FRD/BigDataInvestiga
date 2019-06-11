@@ -37,6 +37,26 @@
         <script src="Scripts/Bootstrap/prettify.js"></script>
         <script src="Scripts/Bootstrap/bootstrap-datepicker.js"></script>
         
+        <script>
+        
+        $( document ).ready(function() {
+            $.ajax({
+                url: BASEURL+"archivos"+ENDURL
+            }).done(function(data){
+                for(var elem in data){
+                    var fileInfo = data[elem];
+                    $("#rest-files>tbody").append('<tr>'+
+                                '<td>'+fileInfo.fecha+'</td>'+
+                                '<td>'+fileInfo.nombre+'</td>'+
+                                '<td>'+fileInfo.id_investigacion+'</td>'+
+                                '<td style="text-align:right;">'+
+                                    '<a href="filter#'+fileInfo.id_investigacion+'" class="btn btn-default glyphicon glyphicon-filter"></a>'+
+                                '</td>'+
+                            '</tr>');
+                }
+            });
+        });
+        </script>
         
 
     </head>
@@ -71,8 +91,23 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4>Archivos Subidos</h4>
-                    
-                    <div id="result">
+                    <div>
+                        <h2>desde Firebase</h2>
+                        <table class="table" id="rest-files">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Subido</th>
+                                    <th>Nombre Archivo</th>
+                                    <th>ID Investigaci&oacute;n</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div id="result" class="hide">
                         <table class="table" id="docs">
                             <thead>
                                 <tr>
