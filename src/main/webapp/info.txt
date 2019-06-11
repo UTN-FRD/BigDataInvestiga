@@ -3,3 +3,5 @@ Servicios RESTFul
 /savestep (POST)
 /archivos (GET)
 
+formato de fecha:
+new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toJSON()
